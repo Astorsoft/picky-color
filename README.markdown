@@ -13,6 +13,15 @@ Installation
 Example usage
 ==============
 
+First of all you have to include the `picky_color.css` and `picky_color.js` to your layout :
+
+    <%= javascript_include_tag 'picky_color' %>
+    <%= stylesheet_link_tag 'picky_color' %>
+    
+**Warning**: This color-picker uses the prototype and scriptaculous librairies, therefore the corresponding js files have to be included to, if it's not the case, you just have to add the following line  **before** the `picky_color` javascript  ::
+
+    <%= javascript_include_tag :defaults %>
+
 For the case 2 and 3 of this example I will act as if I have to put a color picker for the field color of my model post
 
 This plugin offer 3 way to use the helper :
@@ -27,21 +36,25 @@ This plugin offer 3 way to use the helper :
     
 3. Using it in the Formbuilder
 
-        <%= f.picky_color :color %>
+        <% form_for(@post) do |f| %>
+          <%= f.picky_color :color %>
+        <% end %>
     
 It is of course possible to add any html option in addition to these parameters as a Hash as last parameter of the methods. They will be applied on the input text field :
 
     <%= picky_color :post, :color, :class => "my_sexy_class" %>
 
-In addition to the html options, you have at your disposal 2 custom parameters : **draggable** and **close_text**
+In addition to the html options, you have at your disposal 3 custom parameters : **draggable**, **close_text** and **default**
 
-1. *:close_text* takes a string and is the text of the confirm button of the color picker, default is "OK"
+1. `:close_text` takes a string and is the text of the confirm button of the color picker, default is "OK"
 
-2.  *:draggable* takes a boolean and set if the color picker is draggable or not, default is false
+2.  `:draggable` takes a boolean and set if the color picker is draggable or not, default is false
+
+3. `:default` takes a string and is the default color shown by the color picker, default is "000000"
 
 example :
 
-    <%#= picky_color :post, :color, :draggable => true, :close_text => "ColorMe!" %>
+    <%= picky_color :post, :color, :draggable => true, :close_text => "ColorMe!", :default => "0fe" %>
       
 
 Authors and credits
@@ -72,4 +85,3 @@ It's my first plugin therefore I'm sure my code is a mess and deserve a lot of i
 
 Copyright (c) 2008 Morgan Hotonnier <astorsoft@gmail.com>, released under the MIT license
 
- 

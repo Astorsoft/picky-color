@@ -6,12 +6,13 @@ module PickyColor
     # set defaults values if related options aren't set by the user
     def picky_color_process_options(options)
       picky_options = {}
-      for key in [:draggable, :close_text, :style_color_well]
+      for key in [:draggable, :close_text, :style_color_well, :default]
         picky_options[key] = options.delete(key) if options.has_key?(key)
       end
       
       picky_options[:draggable] ||= false
       picky_options[:close_text] ||= 'OK'
+      picky_options[:default] ||= "000000"
       
       return picky_options     
     end
@@ -27,13 +28,16 @@ module PickyColor
       
       out << (javascript_tag %{
       color_value = $('#{name}').value
+      if (color_value == "") {
+        color_value = "#{picky_options[:default]}"
+      }
       new PickyColor({
           color: color_value,
           field: '#{name}',
           colorWell: 'color_well_#{name}',
           draggable: #{picky_options[:draggable]},
           closeText: '#{picky_options[:close_text]}',
-          imageBase: '../images/picky_color/'
+          imageBase: '/images/picky_color/'
          })}) 
              
       out << "</div>"
